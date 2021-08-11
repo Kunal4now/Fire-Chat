@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 final _fireStore = FirebaseFirestore.instance;
 User loggedInUser;
@@ -20,14 +21,13 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCurrentUser();
   }
 
   void getCurrentUser() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
         print(loggedInUser.email);
@@ -57,20 +57,18 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                messageStream();
-                _auth.signOut();
-                Navigator.pop(context);
-                //Implement logout functionality
-              }),
-        ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
-      ),
+          leading: null,
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  messageStream();
+                  _auth.signOut();
+                  Navigator.pop(context);
+                }),
+          ],
+          title: Text('Fire-chat'),
+          backgroundColor: Colors.red),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,16 +93,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   TextButton(
                     onPressed: () {
                       MessageTextSController.clear();
-                      //Implement send functionality.
                       _fireStore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
                         'time': DateTime.now().millisecondsSinceEpoch,
                       });
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
                     },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
+                    child: Icon(
+                      Icons.send,
+                      size: 40.0,
                     ),
                   ),
                 ],
@@ -125,9 +123,9 @@ class MessageStream extends StatelessWidget {
       // ignore: missing_return
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final messages = snapshot.data;
+          final messages = snapshot.data.docs.reversed;
           List<MessageBubble> messageBubbles = [];
-          for (var message in messages.docs) {
+          for (var message in messages) {
             final messageText = message.data()['text'];
             final messageSender = message.data()['sender'];
             final currentUser = loggedInUser.email;
@@ -140,6 +138,7 @@ class MessageStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              reverse: true,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
               children: messageBubbles,
             ),
