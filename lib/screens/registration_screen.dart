@@ -2,6 +2,7 @@ import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flash_chat/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -20,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return ModalProgressHUD(
       inAsyncCall: showSpinner,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,7 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
               child: Material(
-                color: Colors.blueAccent,
+                color: kButtonColor,
                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(

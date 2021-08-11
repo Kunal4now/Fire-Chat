@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -20,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return ModalProgressHUD(
       inAsyncCall: showSpinner,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF5C5053),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -45,6 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.black,
                 ),
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: kLoginTextFieldColor,
                   hintStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -61,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                        BorderSide(color: kLoginTextFieldColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
                 ),
@@ -80,6 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.black,
                 ),
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: kLoginTextFieldColor,
                   hintStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -91,12 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                        BorderSide(color: kLoginTextFieldColor, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                        BorderSide(color: kLoginTextFieldColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
                 ),
@@ -107,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
-                  color: Colors.lightBlueAccent,
+                  color: Color(0xFFE49E54),
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: MaterialButton(
