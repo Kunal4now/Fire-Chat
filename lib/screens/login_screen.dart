@@ -30,7 +30,25 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               Container(
                 height: 200.0,
-                child: Image.asset('images/logo.png'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome',
+                      style: TextStyle(
+                        fontSize: 50.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Back',
+                      style: TextStyle(
+                        fontSize: 50.0,
+                        
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 48.0,
